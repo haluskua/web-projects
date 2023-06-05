@@ -1,3 +1,9 @@
+const quoteContainer = document.getElementById("quote-generator");
+const quoteText = document.getElementById("quote");
+const authorText = document.getElementById("author");
+const twitterBtn = document.getElementById("twitter");
+const newQuoteBtn = document.getElementById("new-quote");
+
 let apiQuotes = [];
 
 // Show New Quote
@@ -5,7 +11,22 @@ let apiQuotes = [];
 function newQuote() {
   // Pick a random quote from apiQuotes array
   const quote = apiQuotes[Math.floor(Math.random() * apiQuotes.length)];
-  console.log(quote);
+
+  // Check if Author field is blank and replace it with 'Unknown'
+  if (!quote.author || quote.author === "") {
+    authorText.textContent = "Unknown";
+  } else {
+    authorText.textContent = quote.author;
+  }
+  // Check Quote length to determine styling
+  if (quote.text.length > 100) {
+    quoteText.classList.add("long-quote");
+  } else {
+    quoteText.classList.remove("long-quote");
+  }
+  quoteText.textContent = quote.text;
+
+  //   console.log(quote);
 }
 // Get Quotes From API
 
@@ -333,7 +354,8 @@ const quoteData = [
 
 function randomQuote() {
   const randomPick = quoteData[Math.floor(Math.random() * quoteData.length)];
-  console.log(randomPick);
+  const justQuote = randomPick.q;
+  console.log(justQuote);
 }
 
 // On page load
